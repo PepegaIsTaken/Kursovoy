@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="flight">
+            <h2><span jhiTranslate="airTrafficApp.flight.detail.title">Flight</span> {{flight.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="airTrafficApp.flight.number">Number</span></dt>
+                <dd>
+                    <span>{{flight.number}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.passengers">Passengers</span></dt>
+                <dd>
+                    <span>{{flight.passengers}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.distance">Distance</span></dt>
+                <dd>
+                    <span>{{flight.distance}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.company">Company</span></dt>
+                <dd>
+                    <span>{{flight.company}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.seats">Seats</span></dt>
+                <dd>
+                    <span>{{flight.seats}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.date">Date</span></dt>
+                <dd>
+                    <span>{{flight.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.departureAirport">Departure Airport</span></dt>
+                <dd>
+                    <div *ngIf="flight.departureAirport">
+                        <a [routerLink]="['/airport', flight.departureAirport?.id, 'view']">{{flight.departureAirport?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.flight.arrivalAirport">Arrival Airport</span></dt>
+                <dd>
+                    <div *ngIf="flight.arrivalAirport">
+                        <a [routerLink]="['/airport', flight.arrivalAirport?.id, 'view']">{{flight.arrivalAirport?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/flight', flight.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

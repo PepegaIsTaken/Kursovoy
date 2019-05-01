@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="airport">
+            <h2><span jhiTranslate="airTrafficApp.airport.detail.title">Airport</span> {{airport.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="airTrafficApp.airport.latitude">Latitude</span></dt>
+                <dd>
+                    <span>{{airport.latitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.airport.longitude">Longitude</span></dt>
+                <dd>
+                    <span>{{airport.longitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.airport.name">Name</span></dt>
+                <dd>
+                    <span>{{airport.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="airTrafficApp.airport.airportLocation">Airport Location</span></dt>
+                <dd>
+                    <div *ngIf="airport.airportLocation">
+                        <a [routerLink]="['/city', airport.airportLocation?.id, 'view']">{{airport.airportLocation?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                    [routerLink]="['/airport', airport.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

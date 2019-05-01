@@ -1,0 +1,24 @@
+{
+    "airTrafficApp": {
+        "airport": {
+            "home": {
+                "title": "Airports",
+                "createLabel": "Create a new Airport",
+                "createOrEditLabel": "Create or edit a Airport"
+            },
+            "created": "A new Airport is created with identifier {{ param }}",
+            "updated": "A Airport is updated with identifier {{ param }}",
+            "deleted": "A Airport is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Airport {{ id }}?"
+            },
+            "detail": {
+                "title": "Airport"
+            },
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "name": "Name",
+            "airportLocation": "Airport Location"
+        }
+    }
+}

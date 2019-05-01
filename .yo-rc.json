@@ -1,0 +1,40 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.mycompany.myapp",
+            "nativeLanguage": "ru"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "monolith",
+        "baseName": "AirTraffic",
+        "packageName": "com.mycompany.myapp",
+        "packageFolder": "com/mycompany/myapp",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "postgresql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "MTAxZDJkMmMwM2MxMTNhNDk3NDRjNmI5MzJiMmIzYzdjZDljN2Y3MDMyYjc1ZmJkZDhjZGZhY2ViN2RjMDhlNjkxMTlkMGY2YWY2MTFjN2M0ZWU2N2I5NzNmMTc3ZTliOWI3NWVkMjc4ZTRiZWNhZjI3NTliMTg5MTg5ZjQ4NWU=",
+        "clientFramework": "angularX",
+        "useSass": false,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["protractor"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "ru",
+        "languages": ["ru", "en"],
+        "herokuAppName": "air-traffic-da",
+        "herokuDeployType": "git"
+    }
+}

@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-flight-heading" jhiTranslate="airTrafficApp.flight.home.createOrEditLabel">Create or edit a Flight</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!flight.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="flight.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.number" for="field_number">Number</label>
+                    <input type="number" class="form-control" name="number" id="field_number"
+                        [(ngModel)]="flight.number" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.passengers" for="field_passengers">Passengers</label>
+                    <input type="number" class="form-control" name="passengers" id="field_passengers"
+                        [(ngModel)]="flight.passengers" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.distance" for="field_distance">Distance</label>
+                    <input type="number" class="form-control" name="distance" id="field_distance"
+                        [(ngModel)]="flight.distance" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.company" for="field_company">Company</label>
+                    <input type="text" class="form-control" name="company" id="field_company"
+                        [(ngModel)]="flight.company" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.seats" for="field_seats">Seats</label>
+                    <input type="number" class="form-control" name="seats" id="field_seats"
+                        [(ngModel)]="flight.seats" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.date" for="field_date">Date</label>
+                    <div class="input-group">
+                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="flight.date"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.departureAirport" for="field_departureAirport">Departure Airport</label>
+                    <select class="form-control" id="field_departureAirport" name="departureAirport" [(ngModel)]="flight.departureAirport" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="airportOption.id === flight.departureAirport?.id ? flight.departureAirport : airportOption" *ngFor="let airportOption of airports; trackBy: trackAirportById">{{airportOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="airTrafficApp.flight.arrivalAirport" for="field_arrivalAirport">Arrival Airport</label>
+                    <select class="form-control" id="field_arrivalAirport" name="arrivalAirport" [(ngModel)]="flight.arrivalAirport" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="airportOption.id === flight.arrivalAirport?.id ? flight.arrivalAirport : airportOption" *ngFor="let airportOption of airports; trackBy: trackAirportById">{{airportOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
