@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="name"><span jhiTranslate="airTrafficApp.city.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="country"><span jhiTranslate="airTrafficApp.city.country">Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="population"><span jhiTranslate="airTrafficApp.city.population">Population</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -23,7 +23,7 @@
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let city of cities ;trackBy: trackId">
-                <td><a [routerLink]="['/city', city.id, 'view' ]">{{city.id}}</a></td>
+           <!--     <td><a [routerLink]="['/city', city.id, 'view' ]">{{city.id}}</a></td>-->
                 <td>{{city.name}}</td>
                 <td>{{city.country}}</td>
                 <td>{{city.population}}</td>

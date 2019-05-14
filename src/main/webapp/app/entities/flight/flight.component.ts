@@ -9,6 +9,7 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { FlightService } from './flight.service';
+import { pdf } from '@progress/kendo-drawing';
 
 @Component({
     selector: 'jhi-flight',
@@ -21,9 +22,12 @@ export class FlightComponent implements OnInit, OnDestroy {
     itemsPerPage: number;
     links: any;
     page: any;
+    error: any;
+    success: any;
     predicate: any;
     reverse: any;
     totalItems: number;
+    CallRecent: boolean;
 
     constructor(
         protected flightService: FlightService,
@@ -40,6 +44,7 @@ export class FlightComponent implements OnInit, OnDestroy {
         };
         this.predicate = 'id';
         this.reverse = true;
+        this.CallRecent = false;
     }
 
     loadAll() {
@@ -59,6 +64,7 @@ export class FlightComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.flights = [];
         this.loadAll();
+        this.CallRecent = false;
     }
 
     loadPage(page) {
@@ -67,6 +73,18 @@ export class FlightComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        /*pdf.defineFont({
+            'DejaVu Sans': 'https://cdn.kendostatic.com/2014.3.1314/styles/fonts/DejaVu/DejaVuSans.ttf',
+            'DejaVu Sans|Bold': 'https://cdn.kendostatic.com/2014.3.1314/styles/fonts/DejaVu/DejaVuSans-Bold.ttf',
+            'DejaVu Sans|Bold|Italic': 'https://cdn.kendostatic.com/2014.3.1314/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf',
+            'DejaVu Sans|Italic': 'https://cdn.kendostatic.com/2014.3.1314/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf'
+        });*/
+        pdf.defineFont({
+            'DejaVu Sans': 'content/css/assets/DejaVuSans.ttf',
+            'DejaVu Sans|Bold': 'content/css/assets/DejaVuSans-Bold.ttf',
+            'DejaVu Sans|Bold|Italic': 'content/css/assets/DejaVuSans-Oblique.ttf',
+            'DejaVu Sans|Italic': 'content/css/assets/DejaVuSans-Oblique.ttf'
+        });
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -79,6 +97,9 @@ export class FlightComponent implements OnInit, OnDestroy {
     }
 
     trackId(index: number, item: IFlight) {
+        if (localStorage.getItem(String(item.id)) !== null) {
+            item.activated = true;
+        }
         return item.id;
     }
 
@@ -104,5 +125,35 @@ export class FlightComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    setFav(flight, isActivated) {
+        flight.activated = isActivated;
+        localStorage.setItem(String(flight.id), 'true');
+    }
+
+    delFav(flight, isActivated) {
+        flight.activated = isActivated;
+        localStorage.removeItem(String(flight.id));
+    }
+
+    showRecent() {
+        this.page = 0;
+        this.flights = [];
+        this.loadRecent();
+    }
+
+    loadRecent() {
+        this.CallRecent = true;
+        this.flightService
+            .queryRecent({
+                page: this.page,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            })
+            .subscribe(
+                (res: HttpResponse<IFlight[]>) => this.paginateFlights(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

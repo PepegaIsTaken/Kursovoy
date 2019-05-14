@@ -1,6 +1,10 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
+@font-face {
+    font-family: 'DejaVu Sans';
+    src: url('assets/DejaVuSans.ttf') format('truetype');
+}
 
 body,
 h1,
@@ -85,6 +89,13 @@ Generic styles
     opacity: 1;
 }
 
+.k-pdf-export .noExport {
+    display: none;
+}
+
+/*.k-pdf-export .rusFont {
+    font-family: Arial, Helvetica, sans-serif;
+}*/
 .footer {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
 }

@@ -11,6 +11,7 @@ import { FlightDetailComponent } from './flight-detail.component';
 import { FlightUpdateComponent } from './flight-update.component';
 import { FlightDeletePopupComponent } from './flight-delete-dialog.component';
 import { IFlight } from 'app/shared/model/flight.model';
+import { FlightChartComponent } from './flight-chart.component';
 
 @Injectable({ providedIn: 'root' })
 export class FlightResolve implements Resolve<IFlight> {
@@ -65,6 +66,18 @@ export const flightRoute: Routes = [
     {
         path: ':id/edit',
         component: FlightUpdateComponent,
+        resolve: {
+            flight: FlightResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'airTrafficApp.flight.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'chart',
+        component: FlightChartComponent,
         resolve: {
             flight: FlightResolve
         },

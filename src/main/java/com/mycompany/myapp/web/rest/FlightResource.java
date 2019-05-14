@@ -18,6 +18,7 @@ import javax.mail.search.SearchTerm;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,6 +96,19 @@ public class FlightResource {
         page = flightRepository.findAll(pageable);
         else page=flightRepository.findByCompany(com.mycompany.myapp.security.SecurityUtils.getCurrentUserLogin().orElse(null),pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/flights");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/flights/date")
+    public ResponseEntity<List<Flight>> getRecentFlights(Pageable pageable) {
+        log.debug("REST request to get a page of Recent Flights");
+        String nameadm="admin";
+        Page<Flight> page;
+        Optional<String> compStr= Optional.of(nameadm);
+        if(com.mycompany.myapp.security.SecurityUtils.getCurrentUserLogin().equals(compStr))
+            page = flightRepository.findByDateBetween(LocalDate.now(),LocalDate.now().plusWeeks(2),pageable);
+        else page=flightRepository.findByCompanyAndDateBetween(com.mycompany.myapp.security.SecurityUtils.getCurrentUserLogin().orElse(null),LocalDate.now(),LocalDate.now().plusWeeks(2),pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/flights/");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

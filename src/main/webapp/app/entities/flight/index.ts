@@ -4,3 +4,4 @@ export * from './flight-delete-dialog.component';
 export * from './flight-detail.component';
 export * from './flight.component';
 export * from './flight.route';
+export * from './flight-chart.component';

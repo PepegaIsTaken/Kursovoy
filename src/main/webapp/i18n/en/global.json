@@ -84,7 +84,8 @@
             }
         },
         "field": {
-            "id": "ID"
+            "id": "ID",
+            "favourites": "★"
         },
         "ribbon": {
             "dev": "Development"

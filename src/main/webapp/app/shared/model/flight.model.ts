@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 import { IAirport } from 'app/shared/model/airport.model';
 
 export interface IFlight {
+    activated?: boolean;
     id?: number;
     number?: number;
     passengers?: number;
@@ -23,6 +24,11 @@ export class Flight implements IFlight {
         public seats?: number,
         public date?: Moment,
         public departureAirport?: IAirport,
-        public arrivalAirport?: IAirport
-    ) {}
+        public arrivalAirport?: IAirport,
+        public activated?: boolean
+    ) {
+        if (localStorage.getItem(String(this.id)) !== null) {
+            this.activated = true;
+        }
+    }
 }

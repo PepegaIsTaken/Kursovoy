@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+          <!--  <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="latitude"><span jhiTranslate="airTrafficApp.airport.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="longitude"><span jhiTranslate="airTrafficApp.airport.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="name"><span jhiTranslate="airTrafficApp.airport.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -24,7 +24,7 @@
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let airport of airports ;trackBy: trackId">
-                <td><a [routerLink]="['/airport', airport.id, 'view' ]">{{airport.id}}</a></td>
+           <!--     <td><a [routerLink]="['/airport', airport.id, 'view' ]">{{airport.id}}</a></td>-->
                 <td>{{airport.latitude}}</td>
                 <td>{{airport.longitude}}</td>
                 <td>{{airport.name}}</td>

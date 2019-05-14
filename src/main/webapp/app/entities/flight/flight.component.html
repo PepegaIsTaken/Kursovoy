@@ -1,6 +1,12 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="airTrafficApp.flight.home.title">Flights</span>
+        <button class="btn btn-outline-info floating" kendo-button (click)="pdf.saveAs('flights.pdf')">
+            PDF...
+        </button>
+        <button class="button btn btn-info" *ngIf="!CallRecent" (click)="showRecent()">Последние авиарейсы</button>
+        <button class="button btn btn-outline-secondary" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/flight/chart']">График</button>
+        <button class="button btn btn-info" *ngIf="CallRecent" (click)="reset()">Все авиарейсы</button>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-flight" [routerLink]="['/flight/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="airTrafficApp.flight.home.createLabel">
@@ -10,31 +16,37 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
+    <kendo-pdf-export #pdf paperSize="A4" margin="1cm" landscape="true" [scale]=0.55>
     <div class="table-responsive" *ngIf="flights">
         <table class="table table-striped">
-            <thead>
+            <thead class="rusFont">
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th class="align-text-top noExport"><span jhiTranslate="global.field.favourites">Favourites</span><!--<fa-icon [icon]="'sort'"></fa-icon>--></th>
+            <!--<th jhiSortBy="id" class="noExport"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="number"><span jhiTranslate="airTrafficApp.flight.number">Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="passengers"><span jhiTranslate="airTrafficApp.flight.passengers">Passengers</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="distance"><span jhiTranslate="airTrafficApp.flight.distance">Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="company"><span jhiTranslate="airTrafficApp.flight.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="seats"><span jhiTranslate="airTrafficApp.flight.seats">Seats</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="date"><span jhiTranslate="airTrafficApp.flight.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="date" class="align-text-top"><span class="align-text-bottom" jhiTranslate="airTrafficApp.flight.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="departureAirport.name"><span jhiTranslate="airTrafficApp.flight.departureAirport">Departure Airport</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="arrivalAirport.name"><span jhiTranslate="airTrafficApp.flight.arrivalAirport">Arrival Airport</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th class="noExport"></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let flight of flights ;trackBy: trackId">
-                <td><a [routerLink]="['/flight', flight.id, 'view' ]">{{flight.id}}</a></td>
+                <td class="noExport">
+                    <button class="btn btn-default btn-sm" (click)="setFav(flight, true)" *ngIf="!flight.activated">+</button>
+                    <button class="btn btn-success btn-sm" (click)="delFav(flight, false)" *ngIf="flight.activated">-</button>
+                </td>
+                <!--<td class="noExport"><a [routerLink]="['/flight', flight.id, 'view' ]">{{flight.id}}</a></td>-->
                 <td>{{flight.number}}</td>
                 <td>{{flight.passengers}}</td>
                 <td>{{flight.distance}}</td>
                 <td>{{flight.company}}</td>
                 <td>{{flight.seats}}</td>
-                <td>{{flight.date | date:'mediumDate'}}</td>
+                <td>{{flight.date | date: 'shortDate'}}</td>
                 <td>
                     <div *ngIf="flight.departureAirport">
                         <a [routerLink]="['../airport', flight.departureAirport?.id, 'view' ]" >{{flight.departureAirport?.name}}</a>
@@ -45,8 +57,8 @@
                         <a [routerLink]="['../airport', flight.arrivalAirport?.id, 'view' ]" >{{flight.arrivalAirport?.name}}</a>
                     </div>
                 </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                <td class="text-right noExport">
+                    <div class="btn-group-xs flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/flight', flight.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -73,4 +85,5 @@
             </tbody>
         </table>
     </div>
+    </kendo-pdf-export>
 </div>

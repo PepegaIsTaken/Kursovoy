@@ -1,0 +1,333 @@
+@startuml
+
+title __REST's Class Diagram__\n
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class AccountResourceIntTest {
+            - passwordEncoder : PasswordEncoder
+            - httpMessageConverters : HttpMessageConverter<?>[]
+            - restMvc : MockMvc
+            - restUserMockMvc : MockMvc
+            + setup()
+            + testNonAuthenticatedUser()
+            + testAuthenticatedUser()
+            + testGetExistingAccount()
+            + testGetUnknownAccount()
+            + testRegisterValid()
+            + testRegisterInvalidLogin()
+            + testRegisterInvalidEmail()
+            + testRegisterInvalidPassword()
+            + testRegisterNullPassword()
+            + testRegisterDuplicateLogin()
+            + testRegisterDuplicateEmail()
+            + testRegisterAdminIsIgnored()
+            + testActivateAccount()
+            + testActivateAccountWithWrongKey()
+            + testSaveAccount()
+            + testSaveInvalidEmail()
+            + testSaveExistingEmail()
+            + testSaveExistingEmailAndLogin()
+            + testChangePasswordWrongExistingPassword()
+            + testChangePassword()
+            + testChangePasswordTooSmall()
+            + testChangePasswordTooLong()
+            + testChangePasswordEmpty()
+            + testRequestPasswordReset()
+            + testRequestPasswordResetUpperCaseEmail()
+            + testRequestPasswordResetWrongEmail()
+            + testFinishPasswordReset()
+            + testFinishPasswordResetTooSmall()
+            + testFinishPasswordResetWrongKey()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class AirportResourceIntTest {
+            {static} - DEFAULT_LATITUDE : Double
+            {static} - UPDATED_LATITUDE : Double
+            {static} - DEFAULT_LONGITUDE : Double
+            {static} - UPDATED_LONGITUDE : Double
+            {static} - DEFAULT_NAME : String
+            {static} - UPDATED_NAME : String
+            - jacksonMessageConverter : MappingJackson2HttpMessageConverter
+            - pageableArgumentResolver : PageableHandlerMethodArgumentResolver
+            - em : EntityManager
+            - validator : Validator
+            - restAirportMockMvc : MockMvc
+            + setup()
+            {static} + createEntity()
+            + initTest()
+            + createAirport()
+            + createAirportWithExistingId()
+            + getAllAirports()
+            + getAirport()
+            + getNonExistingAirport()
+            + updateAirport()
+            + updateNonExistingAirport()
+            + deleteAirport()
+            + equalsVerifier()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class AuditResourceIntTest {
+            {static} - SAMPLE_PRINCIPAL : String
+            {static} - SAMPLE_TYPE : String
+            {static} - SAMPLE_TIMESTAMP : Instant
+            {static} - SECONDS_PER_DAY : long
+            - jacksonMessageConverter : MappingJackson2HttpMessageConverter
+            - formattingConversionService : FormattingConversionService
+            - pageableArgumentResolver : PageableHandlerMethodArgumentResolver
+            - restAuditMockMvc : MockMvc
+            + setup()
+            + initTest()
+            + getAllAudits()
+            + getAudit()
+            + getAuditsByDate()
+            + getNonExistingAuditsByDate()
+            + getNonExistingAudit()
+            + testPersistentAuditEventEquals()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class CityResourceIntTest {
+            {static} - DEFAULT_NAME : String
+            {static} - UPDATED_NAME : String
+            {static} - DEFAULT_COUNTRY : String
+            {static} - UPDATED_COUNTRY : String
+            {static} - DEFAULT_POPULATION : Integer
+            {static} - UPDATED_POPULATION : Integer
+            - jacksonMessageConverter : MappingJackson2HttpMessageConverter
+            - pageableArgumentResolver : PageableHandlerMethodArgumentResolver
+            - em : EntityManager
+            - validator : Validator
+            - restCityMockMvc : MockMvc
+            + setup()
+            {static} + createEntity()
+            + initTest()
+            + createCity()
+            + createCityWithExistingId()
+            + getAllCities()
+            + getCity()
+            + getNonExistingCity()
+            + updateCity()
+            + updateNonExistingCity()
+            + deleteCity()
+            + equalsVerifier()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class FlightResourceIntTest {
+            {static} - DEFAULT_NUMBER : Integer
+            {static} - UPDATED_NUMBER : Integer
+            {static} - DEFAULT_PASSENGERS : Integer
+            {static} - UPDATED_PASSENGERS : Integer
+            {static} - DEFAULT_DISTANCE : Integer
+            {static} - UPDATED_DISTANCE : Integer
+            {static} - DEFAULT_COMPANY : String
+            {static} - UPDATED_COMPANY : String
+            {static} - DEFAULT_SEATS : Integer
+            {static} - UPDATED_SEATS : Integer
+            {static} - DEFAULT_DATE : LocalDate
+            {static} - UPDATED_DATE : LocalDate
+            - jacksonMessageConverter : MappingJackson2HttpMessageConverter
+            - pageableArgumentResolver : PageableHandlerMethodArgumentResolver
+            - em : EntityManager
+            - validator : Validator
+            - restFlightMockMvc : MockMvc
+            + setup()
+            {static} + createEntity()
+            + initTest()
+            + createFlight()
+            + createFlightWithExistingId()
+            + getAllFlights()
+            + getFlight()
+            + getNonExistingFlight()
+            + updateFlight()
+            + updateNonExistingFlight()
+            + deleteFlight()
+            + equalsVerifier()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class LogsResourceIntTest {
+            - restLogsMockMvc : MockMvc
+            + setup()
+            + getAllLogs()
+            + changeLogs()
+            + testLogstashAppender()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class TestUtil {
+            {static} - mapper : ObjectMapper
+            {static} + APPLICATION_JSON_UTF8 : MediaType
+            {static} - createObjectMapper()
+            {static} + convertObjectToJsonBytes()
+            {static} + createByteArray()
+            {static} + sameInstant()
+            {static} + equalsVerifier()
+            {static} + createFormattingConversionService()
+            - TestUtil()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class ZonedDateTimeMatcher {
+            - date : ZonedDateTime
+            + ZonedDateTimeMatcher()
+            # matchesSafely()
+            + describeTo()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class UserJWTControllerIntTest {
+            - authenticationManager : AuthenticationManager
+            - passwordEncoder : PasswordEncoder
+            - mockMvc : MockMvc
+            + setup()
+            + testAuthorize()
+            + testAuthorizeWithRememberMe()
+            + testAuthorizeFails()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.mycompany.myapp {
+      package com.mycompany.myapp.web.rest {
+        class UserResourceIntTest {
+            {static} - DEFAULT_LOGIN : String
+            {static} - UPDATED_LOGIN : String
+            {static} - DEFAULT_ID : Long
+            {static} - DEFAULT_PASSWORD : String
+            {static} - UPDATED_PASSWORD : String
+            {static} - DEFAULT_EMAIL : String
+            {static} - UPDATED_EMAIL : String
+            {static} - DEFAULT_FIRSTNAME : String
+            {static} - UPDATED_FIRSTNAME : String
+            {static} - DEFAULT_LASTNAME : String
+            {static} - UPDATED_LASTNAME : String
+            {static} - DEFAULT_IMAGEURL : String
+            {static} - UPDATED_IMAGEURL : String
+            {static} - DEFAULT_LANGKEY : String
+            {static} - UPDATED_LANGKEY : String
+            - jacksonMessageConverter : MappingJackson2HttpMessageConverter
+            - pageableArgumentResolver : PageableHandlerMethodArgumentResolver
+            - em : EntityManager
+            - cacheManager : CacheManager
+            - restUserMockMvc : MockMvc
+            + setup()
+            {static} + createEntity()
+            + initTest()
+            + createUser()
+            + createUserWithExistingId()
+            + createUserWithExistingLogin()
+            + createUserWithExistingEmail()
+            + getAllUsers()
+            + getUser()
+            + getNonExistingUser()
+            + updateUser()
+            + updateUserLogin()
+            + updateUserExistingEmail()
+            + updateUserExistingLogin()
+            + deleteUser()
+            + getAllAuthorities()
+            + testUserEquals()
+            + testUserDTOtoUser()
+            + testUserToUserDTO()
+            + testAuthorityEquals()
+        }
+      }
+    }
+  }
+  
+
+  AccountResourceIntTest o-- UserRepository : userRepository
+  AccountResourceIntTest o-- AuthorityRepository : authorityRepository
+  AccountResourceIntTest o-- UserService : userService
+  AccountResourceIntTest o-- ExceptionTranslator : exceptionTranslator
+  AccountResourceIntTest o-- UserService : mockUserService
+  AccountResourceIntTest o-- MailService : mockMailService
+  AirportResourceIntTest o-- AirportRepository : airportRepository
+  AirportResourceIntTest o-- ExceptionTranslator : exceptionTranslator
+  AirportResourceIntTest o-- Airport : airport
+  AuditResourceIntTest o-- PersistenceAuditEventRepository : auditEventRepository
+  AuditResourceIntTest o-- AuditEventConverter : auditEventConverter
+  AuditResourceIntTest o-- PersistentAuditEvent : auditEvent
+  CityResourceIntTest o-- CityRepository : cityRepository
+  CityResourceIntTest o-- ExceptionTranslator : exceptionTranslator
+  CityResourceIntTest o-- City : city
+  FlightResourceIntTest o-- FlightRepository : flightRepository
+  FlightResourceIntTest o-- ExceptionTranslator : exceptionTranslator
+  FlightResourceIntTest o-- Flight : flight
+  TestUtil +-down- ZonedDateTimeMatcher
+  ZonedDateTimeMatcher -up-|> TypeSafeDiagnosingMatcher
+  UserJWTControllerIntTest o-- TokenProvider : tokenProvider
+  UserJWTControllerIntTest o-- UserRepository : userRepository
+  UserJWTControllerIntTest o-- ExceptionTranslator : exceptionTranslator
+  UserResourceIntTest o-- UserRepository : userRepository
+  UserResourceIntTest o-- MailService : mailService
+  UserResourceIntTest o-- UserService : userService
+  UserResourceIntTest o-- UserMapper : userMapper
+  UserResourceIntTest o-- ExceptionTranslator : exceptionTranslator
+  UserResourceIntTest o-- User : user
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
